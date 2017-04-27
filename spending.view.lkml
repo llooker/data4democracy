@@ -1,5 +1,4 @@
 view: spending {
-
   sql_table_name: `data4democracy.spending_*` ;;
 
   dimension: year {
@@ -36,12 +35,6 @@ view: spending {
     sql: ${TABLE}.out_of_pocket_avg_non_lowincome ;;
   }
 
-  dimension: total_spending_per_user {
-    hidden: yes
-    type: number
-    sql: ${TABLE}.total_spending_per_user ;;
-  }
-
   dimension: unit_cost_wavg {
     hidden: yes
     type: number
@@ -68,22 +61,30 @@ view: spending {
   measure: total_spending {
     type: sum
     sql: ${TABLE}.total_spending ;;
+    value_format_name: usd_0
+  }
+
+  measure: total_spending_per_user {
+    type: number
+    sql: ${total_spending} / nullif(${user_count},0) ;;
+    value_format_name: usd_0
   }
 
   measure: user_count {
     type: sum
     sql: ${TABLE}.user_count ;;
+    value_format_name: decimal_0
   }
 
   measure: unit_count {
     type: sum
     sql: ${TABLE}.unit_count ;;
+    value_format_name: decimal_0
   }
 
   measure: claim_count {
     type: sum
     sql: ${TABLE}.claim_count ;;
+    value_format_name: decimal_0
   }
-
-
 }
