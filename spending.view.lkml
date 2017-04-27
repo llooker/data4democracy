@@ -53,11 +53,6 @@ view: spending {
     sql: ${TABLE}.user_count_non_lowincome ;;
   }
 
-  measure: count {
-    type: count
-    drill_fields: []
-  }
-
   measure: total_spending {
     type: sum
     sql: ${TABLE}.total_spending ;;
